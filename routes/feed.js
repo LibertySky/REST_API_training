@@ -2,8 +2,20 @@ const express = require('express');
 const feedController = require('../controllers/feed');
 const router = express.Router();
 
+// validators
+// const validation = require('../middleware/validator');
+// const validationSchema = require('../middleware/validationSchemas');
+const { body } = require('express-validator');
+
 // GET /feed/posts
 router.get('/posts', feedController.getPosts);
-router.post('/post', feedController.createPost);
+router.post(
+	'/post',
+	[
+		body('title').trim().isLength({ min: 5, max: 150 }),
+		body('content').trim().isLength({ min: 5 }),
+	],
+	feedController.createPost
+);
 
 module.exports = router;
