@@ -9,6 +9,7 @@ const { body } = require('express-validator');
 
 // GET /feed/posts
 router.get('/posts', feedController.getPosts);
+
 router.post(
 	'/post',
 	[
@@ -17,5 +18,7 @@ router.post(
 	],
 	feedController.createPost
 );
+
+router.get('/post/:postId', feedController.getPost);
 
 module.exports = router;
