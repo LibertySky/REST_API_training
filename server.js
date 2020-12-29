@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 app.use(
 	multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
 );
-app.use('images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // set headers to any response to avoir CORS errors
 app.use((req, res, next) => {
