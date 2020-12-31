@@ -43,6 +43,7 @@ exports.createPost = (req, res, next) => {
 			'Error: validation failed, entered data is incorrect'
 		);
 		error.statusCode = 422;
+		error.data = error.errors.array();
 		throw error;
 	}
 	if (!req.file) {

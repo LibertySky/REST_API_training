@@ -11,4 +11,4 @@ const postSchema = new Schema(
 	{ timestamps: true }
 );
 
-module.exports = mongoose.model('Posts', postSchema);
+module.exports = mongoose.model('Post', postSchema);
