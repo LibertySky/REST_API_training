@@ -43,11 +43,12 @@ app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader(
 		'Access-Control-Allow-Methods',
-		'GET, POST, PUT, PATCH, DELETE'
+		'OPTIONS, GET, POST, PUT, PATCH, DELETE'
 	);
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 	next();
 });
+
 app.use('/feed', feedRoutes);
 app.use('/auth', authRoutes);
 
@@ -65,6 +66,7 @@ mongoose
 	.connect('mongodb://localhost:27017/RestAPI-training', {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
+		useFindAndModify: false,
 	})
 	.then(() => {
 		app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
