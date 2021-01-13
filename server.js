@@ -3,12 +3,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const multer = require('multer');
+// cors = require('cors');
 
 // routes
 const feedRoutes = require('./routes/feed');
 const authRoutes = require('./routes/auth');
 
 const app = express();
+// app.use(cors());
 
 // file upload config
 const fileStorage = multer.diskStorage({
@@ -69,5 +71,10 @@ mongoose
 		useFindAndModify: false,
 	})
 	.then(() => {
-		app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-	});
+		const server = app.listen(PORT);
+		const io = require('./socket').init(server);
+		io.on('connection', (socket) => {
+			console.log('Client connected');
+		});
+	})
+	.catch((err) => console.log(err));
